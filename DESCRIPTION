@@ -1,0 +1,14 @@
+Package: mareg
+Type: Package
+Title: Use MarineRegions.org data
+Version: 0.1.0
+Author: Ben Tupper <btupper@bigelow.org>
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Description: A small alternative to mregions package for accessing MarineRegions.org data.
+URL: https://github.com/BigelowLab/mareg
+Imports:
+  rappdirs,
+  sf
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.2.2

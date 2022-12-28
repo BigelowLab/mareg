@@ -1,0 +1,74 @@
+---
+title: "mareg"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[mareg](https://github.com/BigelowLab/mareg) is a small alternative to the much more
+robust and "live" [mregions](https://CRAN.R-project.org/package=mregions) R package. 
+
+`mareg` simplifies access to **locally stored** data from [Marine Regions](marineregions.org). Unlike `mregions`, `mareg` does not fetch data for the user.  Instead, the user downloads the 
+desired data and stores in a directory. 
+
+### Requirements
+
+  + [R v 4.1+](hlo1ttps://www.r-project.org/)
+  
+  + [sf](https://CRAN.R-project.org/package=sf)
+  
+  + [rappdirs](https://CRAN.R-project.org/package=rappdirs)
+
+### Installation
+
+```
+remotes::install_github("BigelowLab/mareg")
+```
+
+### The data path
+
+Where the data directory resides is up to the user (mine is in `~/Dropbox/data/marineregions`).  The user then creates a hidden text file, named `~/.marineregions` in the users home directory.  The `mareg` package reads that file automatically.
+
+### Download data
+
+Visit [Marine Regions](https://www.marineregions.org/downloads.php) download portal to downlaod the data you desire.  I choose [geopackage](https://www.geopackage.org/) format - it plays well with [sf](https://CRAN.R-project.org/package=sf), but other options are available. 
+
+Move the downloaded data into the data directory you established.  If you download a zipped file, be sure to unpack it.  If what gets unpacked is a directory, move the entire directory into the data directory.
+
+### Listing data
+
+First check that the package is mining the hidden path descriptor file correctly.
+
+```{r}
+library(mareg)
+mareg_root()
+```
+
+Now list the contents (this will vary based upon what you have downloaded...)
+
+```{r}
+list_mareg()
+```
+
+Hmmm.  Let's list what is inside.
+
+```{r}
+list_mareg(recursive = TRUE)
+```
+
+### Reading EEZ v11
+
+We have an interest in EEZ v11, so we wrote a function for that.  Fist we read in the default low resolution.
+
+```{r}
+lo <- read_eez() |>
+  dplyr::glimpse()
+```
+
+And compare that to the high resolution.
+```{r}
+hi <- read_eez(res = "high") |>
+  dplyr::glimpse()
+```
